@@ -1,36 +1,163 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ProperView - Real Estate Platform 🏠
 
-## Getting Started
+A Next.js real estate platform with agent dashboards and property management.
 
-First, run the development server:
+---
 
+## 📋 Requirements
+
+- Node.js 18+
+- Docker Desktop
+- Git
+
+**Install:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# macOS
+brew install node git
+# Download Docker Desktop from docker.com
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Verify:**
+```bash
+node --version    # Should be 18+
+docker --version  # Should work
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Quick Start
 
-## Learn More
+```bash
+# 1. Clone and setup
+git clone <repository-url>
+cd properview
+npm install
 
-To learn more about Next.js, take a look at the following resources:
+# 2. Create enviroment file
+cat > .env.local << EOF
+MONGODB_URI=mongodb://admin:password@localhost:27017/properview?authSource=admin
+EOF
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 3. Start database
+npm run docker:up
+sleep 30
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 4. Add demo data
+npm run seed
 
-## Deploy on Vercel
+# 5. Start app
+npm run dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 6. Visit http://localhost:3000
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🔐 Demo Login
+
+| Agent | Email | Password |
+|-------|-------|----------|
+| John Smith | `agent@properview.com` | `demo123` |
+| Sarah Johnson | `agent2@properview.com` | `demo123` |
+| Mike Wilson | `agent3@properview.com` | `demo123` |
+
+**Agent Login:** http://localhost:3000/agent/login
+
+---
+
+## 📱 How to Use
+
+### Public Features
+- **Browse Properties:** http://localhost:3000/listings
+- **Filter:** By price, bedrooms, location
+- **View Details:** Click any property
+- **Submit Inquiry:** Contact agents directly
+
+### Agent Features  
+- **Login:** Use demo accounts above
+- **Dashboard:** View your properties and inquiries
+- **Add Property:** Click "Add New Property"
+- **Edit/Delete:** Use buttons on property cards
+- **View Inquiries:** See buyer messages in dashboard
+
+---
+
+## 🛠️ Commands
+
+```bash
+# Development
+npm run dev              # Start app
+
+# Database  
+npm run docker:up        # Start MongoDB
+npm run docker:down      # Stop MongoDB
+npm run seed             # Add demo data
+
+```
+
+---
+
+## 🗄️ What's Included
+
+**Demo Data:**
+- 9 properties across 3 agents
+- 5 sample inquiries
+- Different property types and prices
+
+**Features:**
+- Multi-agent authentication
+- Property CRUD operations  
+- Inquiry management
+- Responsive design
+- RESTful APIs
+
+---
+
+## 🚨 Common Issues
+
+**MongoDB won't start:**
+```bash
+# Restart Docker Desktop, then:
+npm run docker:down
+npm run docker:up
+sleep 30
+```
+
+**No properties showing:**
+```bash
+npm run seed
+```
+
+**Port 3000 in use:**
+```bash
+PORT=3001 npm run dev
+```
+
+**Reset everything:**
+```bash
+npm run docker:down
+npm run docker:up
+sleep 30
+npm run seed
+npm run dev
+```
+
+---
+
+## 📂 Project Structure
+
+```
+properview/
+├── app/
+│   ├── api/              # API routes
+│   ├── listings/         # Public pages
+│   ├── agent/           # Agent pages
+│   └── globals.css      # Styles
+├── lib/db.js            # Database connection
+├── scripts/seed.js      # Demo data
+└── docker-compose.yml   # MongoDB setup
+```
+
+---
+
+Built with Next.js 14, MongoDB, and Docker.
