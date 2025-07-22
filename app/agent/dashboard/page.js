@@ -31,7 +31,6 @@ export default function AgentDashboardPage() {
         }
 
         const agent = JSON.parse(session)
-        console.log('Logged in agent:', agent)
         setAgentInfo(agent)
 
         // Fetch data for this specific agent
@@ -41,9 +40,7 @@ export default function AgentDashboardPage() {
 
     const fetchProperties = async (agentId) => {
         try {
-            console.log('Dashboard: Fetching properties for agent:', agentId)
             const response = await fetch(`/api/agent/properties?agentId=${agentId}`)
-            console.log('Dashboard: Response status:', response.status)
 
             if (!response.ok) {
                 console.error('Dashboard: Response not OK:', response.statusText)
@@ -51,7 +48,6 @@ export default function AgentDashboardPage() {
             }
 
             const data = await response.json()
-            console.log('Dashboard: Received properties:', data.length)
             setProperties(data)
         } catch (error) {
             console.error('Dashboard: Error fetching properties:', error)
@@ -62,10 +58,8 @@ export default function AgentDashboardPage() {
 
     const fetchInquiries = async (agentId) => {
         try {
-            console.log('Dashboard: Fetching inquiries for agent:', agentId)
             const response = await fetch(`/api/inquiries?agentId=${agentId}`)
             const data = await response.json()
-            console.log('Dashboard: Received inquiries:', data.length)
             setInquiries(data)
         } catch (error) {
             console.error('Dashboard: Error fetching inquiries:', error)

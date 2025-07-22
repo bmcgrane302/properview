@@ -6,10 +6,8 @@ import { getDatabase } from '../../../../lib/db'
 export async function GET(request, { params }) {
   try {
     const { id } = params
-    console.log('API: Fetching property with ID:', id)
 
     if (!ObjectId.isValid(id)) {
-      console.log('API: Invalid ObjectId:', id)
       return NextResponse.json(
         { error: 'Invalid property ID' },
         { status: 400 }
@@ -20,7 +18,6 @@ export async function GET(request, { params }) {
     const collection = db.collection('properties')
 
     const property = await collection.findOne({ _id: new ObjectId(id) })
-    console.log('API: Found property:', property ? 'Yes' : 'No')
 
     if (!property) {
       return NextResponse.json(

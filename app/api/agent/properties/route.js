@@ -7,8 +7,6 @@ export async function GET(request) {
         const { searchParams } = new URL(request.url)
         const agentId = searchParams.get('agentId') || 'agent1' // Mock agent ID
 
-        console.log('API: Fetching properties for agent:', agentId)
-
         const db = await getDatabase()
         const collection = db.collection('properties')
 
@@ -16,8 +14,6 @@ export async function GET(request) {
             .find({ agentId })
             .sort({ createdAt: -1 })
             .toArray()
-
-        console.log('API: Found properties:', properties.length)
 
         return NextResponse.json(properties)
     } catch (error) {
