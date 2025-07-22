@@ -40,7 +40,6 @@ EOF
 
 # 3. Start database
 npm run docker:up
-sleep 30
 
 # 4. Add demo data
 npm run seed
